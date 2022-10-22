@@ -18,7 +18,8 @@ class WebsiteController extends Controller
      */
     public function index()
     {
-        return response()->json(Website::all());
+        $websites = Website::with('scrapedBy')->get();
+        return WebsiteResource::collection($websites);
     }
 
     /**

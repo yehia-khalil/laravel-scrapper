@@ -14,10 +14,21 @@ class WebsiteResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $collection = collect([
             'name' => $this->name,
             'link' => $this->link,
-            'created_at' => $this->created_at
-        ];
+            'created at' => $this->created_at
+        ]);
+        $collection = $collection->when($this->scrapedBy, function ($collection) {
+            return $collection->merge([
+                'last scraped by' => $this->scrapedBy->name
+            ]);
+        });
+        $collection = $collection->when($this->last_scraped_at, function ($collection) {
+            return $collection->merge([
+                'last scraped at' => $this->last_scraped_at
+            ]);
+        });
+        return $collection;
     }
 }

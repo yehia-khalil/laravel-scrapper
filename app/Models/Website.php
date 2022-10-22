@@ -23,6 +23,10 @@ class Website extends Model
     //     });
     // }
 
+    public function scrapedBy()
+    {
+        return $this->belongsTo(User::class, 'last_scraped_by', 'id');
+    }
     public function articles()
     {
         return $this->hasMany(ScrapedArticle::class);
