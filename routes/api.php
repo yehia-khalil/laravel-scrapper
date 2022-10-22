@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\APi\HistoryController;
+use App\Http\Controllers\API\HistoryController;
 use App\Http\Controllers\API\LoginController;
-use App\Http\Controllers\APi\ScrapedArticleController;
+use App\Http\Controllers\API\ScrapedArticleController;
 use App\Http\Controllers\API\WebsiteController;
 use App\Models\Website;
 use Carbon\Carbon;
