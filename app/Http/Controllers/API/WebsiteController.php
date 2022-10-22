@@ -29,7 +29,7 @@ class WebsiteController extends Controller
      */
     public function store(StoreWebsiteRequest $request)
     {
-        $website = Website::create($request->validated());
+        $website = Website::firstOrCreate(['link' => $request->link], $request->validated());
         ScrapeWebsiteJob::dispatch($website, auth()->id());
         return WebsiteResource::make($website);
     }

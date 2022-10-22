@@ -25,7 +25,7 @@ class StoreWebsiteRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'link' => 'required|url|unique:websites,link'
+            'link' => 'required|url'
         ];
     }
 }

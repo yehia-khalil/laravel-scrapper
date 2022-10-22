@@ -3,6 +3,9 @@
 namespace App\Jobs;
 
 use App\Models\Website;
+use App\Strategies\Scrape\ArabMediaSocietyStrategy;
+use App\Strategies\Scrape\Context;
+use App\Strategies\Scrape\MklatStrategy;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,12 +13,14 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class ScrapeWebsiteJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     private $user_id;
     private $website;
+    private $scrapeContext;
     /**
      * Create a new job instance.
      *
@@ -25,6 +30,7 @@ class ScrapeWebsiteJob implements ShouldQueue
     {
         $this->website = $website;
         $this->user_id = $user_id;
+        $this->scrapeContext = new Context();
     }
 
     /**
@@ -34,6 +40,11 @@ class ScrapeWebsiteJob implements ShouldQueue
      */
     public function handle()
     {
-        Log::info($this->website->id.''.$this->user_id);
+        if (Str::contains($this->website->link, 'mklat')) {
+            $this->scrapeContext->setStrategy(new MklatStrategy($this->user_id));
+        } elseif (Str::contains($this->website->link, 'arabmediasoceity')) {
+            $this->scrapeContext->setStrategy(new ArabMediaSocietyStrategy($this->user_id));
+        }
+        $this->scrapeContext->execute();
     }
 }

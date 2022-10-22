@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("link");
             $table->dateTime("last_scraped_at")->nullable();
-            $table->unsignedBigInteger("scraped_by")->nullable();
+            $table->unsignedBigInteger("last_scraped_by")->nullable();
             $table->timestamps();
         });
     }

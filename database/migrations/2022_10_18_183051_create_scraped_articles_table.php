@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->text('article_dom');
             $table->string('published_at');
-            $table->string('link');
             $table->unsignedBigInteger('website_id');
             $table->timestamps();
         });

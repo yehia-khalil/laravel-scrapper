@@ -10,7 +10,7 @@ class Website extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'link', 'last_scrapted_at', 'scraped_by'];
+    protected $fillable = ['name', 'link', 'last_scrapted_at', 'last_scraped_by'];
     public $timestamps = true;
 
     // public static function boot()
@@ -19,7 +19,17 @@ class Website extends Model
 
     //     static::saving(function ($website) {
     //         $website->last_scrapted_at = \Carbon::now();
-    //         $website->scraped_by = Auth::id();
+    //         $website->last_scraped_by = Auth::id();
     //     });
     // }
+
+    public function articles()
+    {
+        return $this->hasMany(ScrapedArticle::class);
+    }
+
+    public function history()
+    {
+        return $this->hasMany(History::class);
+    }
 }
