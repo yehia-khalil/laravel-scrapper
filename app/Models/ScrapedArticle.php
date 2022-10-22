@@ -11,7 +11,7 @@ class ScrapedArticle extends Model
 
     protected $fillable = ['article_dom', 'title', 'description', 'published_at', 'link', 'website_id'];
 
-    public function wesbsite()
+    public function website()
     {
         return $this->belongsTo(Website::class);
     }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Http\Requests\StoreHistoryRequest;
 use App\Http\Requests\UpdateHistoryRequest;
+use App\Http\Resources\HistoryResource;
+use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
@@ -16,7 +18,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        //
+        return HistoryResource::collection(History::with(['website', 'user'])->get());
     }
 
     /**
@@ -35,7 +37,7 @@ class HistoryController extends Controller
      * @param  \App\Http\Requests\StoreHistoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreHistoryRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -69,7 +71,7 @@ class HistoryController extends Controller
      * @param  \App\Models\History  $history
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHistoryRequest $request, History $history)
+    public function update(Request $request, History $history)
     {
         //
     }

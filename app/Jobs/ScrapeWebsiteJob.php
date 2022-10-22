@@ -7,12 +7,10 @@ use App\Strategies\Scrape\ArabMediaSocietyStrategy;
 use App\Strategies\Scrape\Context;
 use App\Strategies\Scrape\MklatStrategy;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class ScrapeWebsiteJob implements ShouldQueue
@@ -42,8 +40,10 @@ class ScrapeWebsiteJob implements ShouldQueue
     {
         if (Str::contains($this->website->link, 'mklat')) {
             $this->scrapeContext->setStrategy(new MklatStrategy($this->user_id));
-        } elseif (Str::contains($this->website->link, 'arabmediasoceity')) {
-            $this->scrapeContext->setStrategy(new ArabMediaSocietyStrategy($this->user_id));
+        } else {
+            if (Str::contains($this->website->link, 'arabmediasociety')) {
+                $this->scrapeContext->setStrategy(new ArabMediaSocietyStrategy($this->user_id));
+            }
         }
         $this->scrapeContext->execute();
     }

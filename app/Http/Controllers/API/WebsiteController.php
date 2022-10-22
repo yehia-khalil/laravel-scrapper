@@ -29,7 +29,11 @@ class WebsiteController extends Controller
      */
     public function store(StoreWebsiteRequest $request)
     {
-        $website = Website::firstOrCreate(['link' => $request->link], $request->validated());
+        if ($request->website_id) {
+            $website = Website::find($request->website_id);
+        } else {
+            $website = Website::firstOrCreate(['link' => $request->link], $request->validated());
+        }
         ScrapeWebsiteJob::dispatch($website, auth()->id());
         return WebsiteResource::make($website);
     }
@@ -42,17 +46,6 @@ class WebsiteController extends Controller
      */
     public function show(Website $website)
     {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Website  $website
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Website $website)
-    {
-        //
     }
 
     /**

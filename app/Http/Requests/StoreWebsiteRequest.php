@@ -24,8 +24,9 @@ class StoreWebsiteRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'link' => 'required|url'
+            'name' => 'required_with:link|string',
+            'link' => 'required_with:name|url',
+            'website_id' => 'sometimes|exists:websites,id'
         ];
     }
 }
