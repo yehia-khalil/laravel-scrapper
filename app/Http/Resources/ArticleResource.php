@@ -19,7 +19,7 @@ class ArticleResource extends JsonResource
             'Article Description' => $this->description,
             'Article DOM' => $this->article_dom,
             'Published at' => $this->published_at,
-            'Article Link' => $this->website->link,
+            'Website Link' => $this->website->link,
             'website name' => $this->website->name
         ];
     }
