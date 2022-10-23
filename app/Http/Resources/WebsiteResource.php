@@ -15,6 +15,7 @@ class WebsiteResource extends JsonResource
     public function toArray($request)
     {
         $collection = collect([
+            'id' => $this->id,
             'name' => $this->name,
             'link' => $this->link,
             'created at' => $this->created_at
