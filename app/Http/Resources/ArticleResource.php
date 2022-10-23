@@ -20,7 +20,7 @@ class ArticleResource extends JsonResource
             'Article DOM' => $this->article_dom,
             'Published at' => $this->published_at,
             'Website Link' => $this->website->link,
-            'website name' => $this->website->name
+            'Website name' => $this->website->name
         ];
     }
 }
