@@ -26,7 +26,7 @@ class StoreWebsiteRequest extends FormRequest
         return [
             'name' => 'required_without:website_id|required_with:link|string',
             'link' => 'required_without:website_id|required_with:name|url',
-            'website_id' => 'sometimes|exists:websites,id'
+            'website_id' => 'required_without_all:link,name|sometimes|exists:websites,id'
         ];
     }
 }
