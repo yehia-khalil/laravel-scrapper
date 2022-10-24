@@ -41,7 +41,10 @@ class ScrapedArticleController extends Controller
      */
     public function show(Website $website_id)
     {
-        $articles = ScrapedArticle::where('website_id', $website_id->id)->with('website')->get();
+        $articles = ScrapedArticle::where('website_id', $website_id->id)
+            ->with('website')
+            ->orderBy('published_at', 'desc')
+            ->get();
         return ArticleResource::collection($articles);
     }
 
